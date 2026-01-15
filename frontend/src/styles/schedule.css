@@ -1,0 +1,152 @@
+.schedule {
+  padding: 120px 20px 80px;
+  color: white;
+  position: relative;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(2, 6, 23, 0.75),
+      rgba(2, 6, 23, 0.95)
+    ),
+    url("../assets/hero-bg.jpg") center / cover no-repeat;
+  min-height: 100vh;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #00f2fe;
+}
+
+.schedule-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.schedule-item {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  border-radius: 12px;
+}
+
+.time {
+  font-weight: 700;
+  color: #00f2fe;
+  min-width: 80px;
+}
+
+.details h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.details p {
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .schedule {
+    padding-top: 100px;
+  }
+
+  .schedule-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .time {
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== TIMELINE STYLE ===== */
+
+.schedule-list {
+  position: relative;
+}
+
+/* Vertical line */
+.schedule-list::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #00f2fe,
+    transparent
+  );
+}
+
+/* Individual item */
+.schedule-item {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  padding-left: 40px;
+}
+
+/* Timeline dot */
+.timeline-dot {
+  position: absolute;
+  left: 6px;
+  top: 24px;
+
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+
+  background: #00f2fe;
+  box-shadow: 0 0 12px #00f2fe;
+}
+
+/* Content */
+.schedule-item .content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Time emphasis */
+.schedule-item .time {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #00f2fe;
+}
+
+/* Mobile cleanup */
+@media (max-width: 768px) {
+  .schedule-list::before {
+    left: 10px;
+  }
+
+  .schedule-item {
+    padding-left: 32px;
+  }
+
+  .timeline-dot {
+    left: 2px;
+  }
+}
+
+.schedule-item {
+  align-items: flex-start;
+}
+
+.schedule-item .icon-3d {
+  margin-top: 6px;
+}

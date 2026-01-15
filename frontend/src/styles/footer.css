@@ -1,0 +1,141 @@
+.footer {
+  background-color: #020617;
+  color: #cbd5e1;
+  padding: 60px 20px 20px;
+  font-family: 'Rajdhani', sans-serif;
+  border-top: 1px solid rgba(0, 242, 254, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cyberpunk Background Detail */
+.footer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(113, 23, 234, 0.1) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #00f2fe, #7117ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.footer-tagline {
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 300px;
+  color: #94a3b8;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  color: #94a3b8;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.social-icons a:hover {
+  color: #00f2fe;
+  background: rgba(0, 242, 254, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 242, 254, 0.3);
+}
+
+.footer-links-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-column h4 {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.footer-column a {
+  display: block;
+  color: #94a3b8;
+  text-decoration: none;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  transition: 0.2s;
+}
+
+.footer-column a:hover {
+  color: #00f2fe;
+  padding-left: 5px;
+}
+
+.footer-bottom {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #22c55e; /* Green for "Verified" */
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .footer-tagline {
+    margin: 0 auto;
+  }
+  .social-icons {
+    justify-content: center;
+  }
+  .footer-links-group {
+    flex-direction: column;
+    gap: 30px;
+  }
+}

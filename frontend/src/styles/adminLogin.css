@@ -1,0 +1,143 @@
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: radial-gradient(
+    circle at top,
+    rgba(34, 211, 238, 0.15),
+    #020617 60%
+  );
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 36px 32px;
+
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-login-card h2 {
+  color: #e5e7eb;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.admin-login-card p {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.admin-login-card input {
+  padding: 12px 14px;
+  font-size: 1rem;
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e5e7eb;
+
+  outline: none;
+}
+
+.admin-login-card input::placeholder {
+  color: #94a3b8;
+}
+
+.admin-login-card input:focus {
+  border-color: #22d3ee;
+}
+
+.admin-login-card button {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+
+  font-weight: 700;
+  font-size: 1rem;
+
+  background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+  color: #020617;
+
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-login-card button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(34, 211, 238, 0.35);
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.eye-icon:hover {
+  opacity: 1;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+.caps-warning {
+  position: absolute;
+  bottom: -22px;
+  left: 4px;
+  font-size: 0.8rem;
+  color: #facc15;
+  pointer-events: none;
+}
+
+.caps-warning {
+  opacity: 0;
+  animation: fadeIn 0.15s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.35s ease;
+}
+

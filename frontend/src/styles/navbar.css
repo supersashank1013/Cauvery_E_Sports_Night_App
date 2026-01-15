@@ -1,0 +1,405 @@
+/* ================= GLOBAL SAFETY ================= */
+* {
+    box-sizing: border-box;
+}
+
+/* ================= VISIBILITY HELPERS ================= */
+.desktop-only {
+    display: flex;
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* ================= NAVBAR BASE ================= */
+.navbar {
+  width: 100%;
+  padding: 12px 64px;
+
+  /* TRUE GLASS */
+  background-color: rgba(15, 23, 42, 0.35) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  border-bottom: 1px solid rgba(0, 242, 254, 0.3);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.35),
+    inset 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.hero {
+  margin-top: -70px;
+  padding-top: 140px;
+}
+
+
+/* ================= LOGO ================= */
+.navbar h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #00f2fe, #7117ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 5px rgba(0, 242, 254, 0.5));
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+/* ================= NAV LINKS ================= */
+.nav-links a {
+    position: relative;
+    margin-left: 30px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #00f2fe;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
+
+/* Underline animation */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #00f2fe, #7117ea);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 8px #00f2fe;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* ================= REGISTER BUTTON (DESKTOP) ================= */
+.nav-links a.register-btn {
+    border: 1px solid #00f2fe;
+    color: #00f2fe;
+    border-radius: 2px;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    padding: 8px 20px;
+    background: transparent;
+}
+
+.nav-links a.register-btn:hover {
+    background: #00f2fe;
+    color: #0f172a;
+    box-shadow: 0 0 15px #00f2fe;
+}
+
+/* ================= LIVE STATUS ================= */
+.live-status {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 0, 0, 0.1);
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 60, 60, 0.3);
+    margin-left: 20px;
+}
+
+.live-text {
+    color: #ff4b2b;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+}
+
+.pulse-dot {
+    height: 8px;
+    width: 8px;
+    background-color: #ff4b2b;
+    border-radius: 50%;
+    margin-right: 8px;
+    position: relative;
+}
+
+.pulse-dot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #ff4b2b;
+    border-radius: 50%;
+    z-index: -1;
+    animation: live-pulse 2s infinite ease-out;
+}
+
+@keyframes live-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(3.5);
+        opacity: 0;
+    }
+}
+
+/* ================= MOBILE MENU BUTTON ================= */
+.menu-toggle {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+/* ================= MOBILE FULLSCREEN OVERLAY ================= */
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+
+    background: rgba(2, 6, 23, 0.65);
+    backdrop-filter: blur(18px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+/* ================= MOBILE MENU PANEL ================= */
+.mobile-menu {
+    width: min(90%, 420px);
+    max-height: calc(100vh - 160px);
+
+    padding: 32px 24px 64px;
+    margin: auto;
+
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(0, 242, 254, 0.4);
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+
+    box-shadow: 0 0 40px rgba(0, 242, 254, 0.25);
+
+    scroll-padding-bottom: 64px;
+}
+
+/* MOBILE MENU LINKS */
+.mobile-menu a {
+    flex-shrink: 0;
+
+    text-align: center;
+    padding: 14px 0;
+
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    color: #00f2fe;
+    text-decoration: none;
+
+    border: 1px solid #00f2fe;
+    border-radius: 6px;
+
+    transition: all 0.25s ease;
+}
+
+.mobile-menu a:hover {
+    background: #00f2fe;
+    color: #0f172a;
+    box-shadow: 0 0 20px #00f2fe;
+}
+
+/* ================= CLOSE BUTTON ================= */
+.mobile-close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+
+    z-index: 4000;
+
+    background: transparent;
+    border: none;
+    color: #00f2fe;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+    /* MENU button styled like desktop Register */
+    .menu-toggle {
+        background: transparent;
+        border: 1px solid #00f2fe;
+        color: #00f2fe;
+
+        padding: 6px 16px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        border-radius: 2px;
+
+        cursor: pointer;
+    }
+
+    /* Optional: tap / hover feedback */
+    .menu-toggle:hover,
+    .menu-toggle:active {
+        background: #00f2fe;
+        color: #0f172a;
+        box-shadow: 0 0 12px #00f2fe;
+    }
+
+    /* Visibility */
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: inline-flex !important;
+    }
+
+    /* Navbar container */
+    .navbar {
+        padding: 10px 14px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        background: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(16px);
+    }
+
+    /* Left cluster: logo + live */
+    .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Logo */
+    .navbar h1 {
+        font-size: 1rem;
+        letter-spacing: 1.2px;
+        white-space: nowrap;
+    }
+
+    /* LIVE badge – compact */
+    .live-status {
+        margin: 0;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 0.65rem;
+        line-height: 1;
+    }
+
+    .live-text {
+        font-size: 0.65rem;
+        letter-spacing: 0.8px;
+    }
+
+    /* MENU button – compact pill */
+    .menu-toggle {
+        background: transparent;
+        border: 1px solid #00f2fe;
+        color: #00f2fe;
+
+        padding: 6px 16px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        border-radius: 2px;
+
+        cursor: pointer;
+    }
+
+    .menu-toggle:hover,
+    .menu-toggle:active {
+        background: #00f2fe;
+        color: #0f172a;
+        box-shadow: 0 0 12px #00f2fe;
+    }
+}
+
+
+
+/* ================= SMALL PHONE SAFETY ================= */
+@media (max-width: 360px) {
+    .mobile-menu {
+        padding: 24px 16px 56px;
+        gap: 16px;
+    }
+}
+
+.nav-links a.active {
+  color: #00f2fe;
+  /* background: rgba(0, 242, 254, 0.1); */
+  /* border-radius: 4px; */
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* ===================== */
+/* TABLET RESPONSIVENESS */
+/* ===================== */
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .navbar {
+    padding: 12px 32px;
+  }
+
+  .nav-links a {
+    margin-left: 18px;
+    font-size: 0.9rem;
+  }
+
+  .nav-links a.register-btn {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,176 @@
+.register-container {
+  padding: 60px 80px;
+  position: relative;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(2, 6, 23, 0.75),
+      rgba(2, 6, 23, 0.95)
+    ),
+    url("../assets/hero-bg.jpg") center / cover no-repeat;
+  min-height: 100vh;
+}
+
+.register-container h2 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+}
+
+.register-form {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form input,
+.register-form select {
+  margin-bottom: 16px;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.register-form button {
+  margin-top: 16px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  background-color: #0f172a;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .register-form {
+    width: 100%;
+  }
+}
+
+/* ===== FORCE GLASSY INPUT EVEN AFTER TYPING ===== */
+
+.register-form input,
+.register-form select {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* On focus */
+.register-form input:focus,
+.register-form select:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 1px rgba(0, 242, 254, 0.6);
+}
+
+/* Chrome / Edge autofill fix */
+.register-form input:-webkit-autofill,
+.register-form input:-webkit-autofill:hover,
+.register-form input:-webkit-autofill:focus,
+.register-form input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.08) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ===== GLASSY SELECT ===== */
+
+.register-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.15s ease;
+}
+
+/* Focus animation */
+.register-form select:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 1px rgba(0, 242, 254, 0.6);
+}
+
+/* Hover polish */
+.register-form select:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== DROPDOWN OPTIONS ===== */
+
+.register-form option {
+  background-color: #020617; /* dark glass-friendly */
+  color: #ffffff;
+}
+
+/* ===== SUBMIT BUTTON (ESPORTS GLASS) ===== */
+
+.register-form button[type="submit"] {
+  margin-top: 20px;
+  padding: 14px 18px;
+
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  color: #00f2fe;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(0, 242, 254, 0.6);
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Hover */
+.register-form button[type="submit"]:hover {
+  background: rgba(0, 242, 254, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(0, 242, 254, 0.8),
+    0 10px 30px rgba(0, 242, 254, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Active / click */
+.register-form button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 0 1px rgba(0, 242, 254, 0.6),
+    0 6px 16px rgba(0, 242, 254, 0.2);
+}
+
+/* Focus (keyboard accessibility) */
+.register-form button[type="submit"]:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(0, 242, 254, 0.9),
+    0 0 20px rgba(0, 242, 254, 0.4);
+}
+
+.register-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

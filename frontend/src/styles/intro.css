@@ -1,0 +1,175 @@
+/* ===== INTRO SCREEN CONTAINER ===== */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+
+  display: flex;
+  flex-direction: column; /* Stack text and loader */
+  align-items: center;
+  justify-content: center;
+
+  /* Cyberpunk Dark Grid Background */
+  background-color: #020617;
+  background-image: 
+    linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  
+  /* Vignette effect to darken edges */
+  box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
+
+  color: white;
+  overflow: hidden;
+}
+
+.intro-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== GAMING TITLE (GLITCH EFFECT) ===== */
+.intro-title {
+  font-size: clamp(3rem, 8vw, 5rem); /* Made slightly bigger */
+  font-weight: 900;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #fff;
+  
+  /* Initial Reveal */
+  opacity: 0;
+  animation: 
+    fadeUp 0.8s ease-out forwards, 
+    glitchText 3s infinite alternate-reverse; /* The Glitch Loop */
+}
+
+.intro-subtitle {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  color: #00f2fe;
+  text-transform: uppercase;
+  
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+/* ===== LOADING BAR (10 SECONDS) ===== */
+/* Add <div class="loading-bar"></div> in your JSX inside .intro-content or below it */
+.loading-bar-container {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  
+  opacity: 0;
+  animation: fadeUp 1s ease-out forwards 0.8s; /* appears after text */
+}
+
+.loading-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: #00f2fe;
+  box-shadow: 0 0 10px #00f2fe;
+  
+  /* Fills up over 10 seconds */
+  animation: loadProgress 10s linear forwards;
+}
+
+/* ===== SKIP BUTTON (DELAYED 2s) ===== */
+.intro-skip {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  color: #00f2fe;
+
+  padding: 12px 24px;
+  border-radius: 4px; /* Square edges look more "tech" */
+
+  font-family: monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* LOGIC: Invisible start -> Wait 2s -> Fade in over 1s */
+  opacity: 0;
+  animation: fadeInSlow 1s ease forwards;
+  animation-delay: 2s; 
+}
+
+.intro-skip:hover {
+  background: #00f2fe;
+  color: #020617;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ===== ANIMATIONS ===== */
+
+/* 1. Standard Fade Up */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* 2. Slow Fade In for Button */
+@keyframes fadeInSlow {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Progress Bar Fill */
+@keyframes loadProgress {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* 4. Cyberpunk Glitch Text Effect */
+@keyframes glitchText {
+  0% {
+    text-shadow: -2px 0 #ff00c1, 2px 0 #00f2fe;
+  }
+  25% {
+    text-shadow: 2px 0 #ff00c1, -2px 0 #00f2fe;
+  }
+  50% {
+    text-shadow: -2px 0 #ff00c1, 2px 0 #00f2fe;
+    opacity: 0.9;
+  }
+  75% {
+    text-shadow: 2px 0 #ff00c1, -2px 0 #00f2fe;
+  }
+  100% {
+    text-shadow: -2px 0 #ff00c1, 2px 0 #00f2fe;
+    opacity: 1;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .intro-title,
+  .intro-subtitle,
+  .intro-skip,
+  .loading-bar-fill {
+    animation: none;
+    opacity: 1;
+    width: 100%;
+  }
+}

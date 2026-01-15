@@ -1,0 +1,56 @@
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  font-family: inherit;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.page-container {
+  padding: 60px 80px;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 24px 16px;
+  }
+}
+
+/* ================= */
+/* GLOBAL BACKGROUND */
+/* ================= */
+
+.global-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background: 
+    linear-gradient(
+      rgba(2, 6, 23, 0.85),
+      rgba(2, 6, 23, 0.85)
+    ),
+    url("/src/assets/hero-bg.jpg"); /* same image as Home */
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  pointer-events: none;
+}
+

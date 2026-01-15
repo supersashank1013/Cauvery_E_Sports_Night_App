@@ -1,0 +1,102 @@
+.rules {
+  padding: 120px 20px 80px;
+  color: white;
+  position: relative;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(2, 6, 23, 0.75),
+      rgba(2, 6, 23, 0.95)
+    ),
+    url("../assets/hero-bg.jpg") center / cover no-repeat;
+  min-height: 100vh;
+}
+
+.rules-list {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.rules-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.rules-card h3 {
+  color: #00f2fe;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.rules-card ul {
+  padding-left: 18px;
+}
+
+.rules-card li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .rules {
+    padding-top: 100px;
+  }
+}
+
+/* ===== RULE HEADER ===== */
+.rules-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.rules-icon {
+  font-size: 1.3rem;
+}
+
+/* ===== RULE LEVEL THEMES ===== */
+
+/* INFO */
+.rules-card.info {
+  border-color: rgba(0, 242, 254, 0.4);
+}
+
+/* STANDARD */
+.rules-card.standard {
+  border-color: rgba(100, 116, 139, 0.4);
+}
+
+/* STRICT */
+.rules-card.strict {
+  border-color: rgba(239, 68, 68, 0.6);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* WARNING */
+.rules-card.warning {
+  border-color: rgba(234, 179, 8, 0.6);
+  background: rgba(234, 179, 8, 0.08);
+}
+
+/* Emphasize strict/warning text */
+.rules-card.strict li,
+.rules-card.warning li {
+  font-weight: 500;
+}
+
+.rules-header {
+  align-items: center;
+}
+
+.rules-header .icon-3d {
+  flex-shrink: 0;
+}
