@@ -7,7 +7,6 @@ import './styles/animations.css';
 import './styles/background.css';
 import './styles/icons.css';
 
-import Intro from "./pages/Intro";
 import Background from "./components/Background";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
@@ -31,9 +30,7 @@ function App() {
       <Navbar />
       <Toaster position="top-right" />
       <Routes>
-        {!hasSeenIntro && <Route path="/" element={<Intro />} />}
 
-        <Route path="/" element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/rules" element={<Rules />} />
