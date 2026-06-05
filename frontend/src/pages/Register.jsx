@@ -1,7 +1,5 @@
-import React from "react";
 import toast from "react-hot-toast";
-import "../styles/Register.css";
-import { Toaster } from "react-hot-toast";
+import "../styles/register.css";
 import { registerTeam } from "../services/api";
 import { useState } from "react";
 
@@ -42,8 +40,8 @@ const Register = () => {
             return false;
         }
 
-        if (formData.contactPhone.length < 10) {
-            toast.error("Phone number must be at least 10 digits");
+        if (!/^\d{10}$/.test(formData.contactPhone)) {
+            toast.error("Phone number must contain exactly 10 digits");
             return false;
         }
 
@@ -73,31 +71,19 @@ const Register = () => {
         setLoading(true);
 
         try {
-            const res = await fetch("http://localhost:5000/api/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
+            const data = await registerTeam(formData);
+
+            toast.success(data.message || "Thank you! Your registration is submitted.");
+
+            setFormData({
+                teamName: "",
+                teamLeaderName: "",
+                contactPhone: "",
+                contactEmail: "",
+                game: "",
             });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                toast.success("Thank you! Your registration is submitted.");
-
-                setFormData({
-                    teamName: "",
-                    teamLeaderName: "",
-                    contactPhone: "",
-                    contactEmail: "",
-                    game: "",
-                });
-            } else {
-                toast.error(data.message || "Registration failed");
-            }
-        } catch (err) {
-            toast.error("Server error. Please try again later.");
+        } catch (error) {
+            toast.error(error.message || "Server error. Please try again later.");
         } finally {
             setLoading(false);
         }

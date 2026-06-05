@@ -1,6 +1,3 @@
-import React from "react";
-
-import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './styles/animations.css';
@@ -18,8 +15,6 @@ import Rules from "./pages/Rules";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 
-const hasSeenIntro = sessionStorage.getItem("introSeen");
-
 function App() {
 
   return (
@@ -28,7 +23,6 @@ function App() {
 
       <Background />
       <Navbar />
-      <Toaster position="top-right" />
       <Routes>
 
         <Route path="/" element={<Home />} />

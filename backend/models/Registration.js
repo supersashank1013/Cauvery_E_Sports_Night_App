@@ -23,7 +23,6 @@ const registrationSchema = new mongoose.Schema(
     teamName: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
 
@@ -58,6 +57,9 @@ const registrationSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+registrationSchema.index({ game: 1, teamName: 1 }, { unique: true });
+registrationSchema.index({ game: 1, contactPhone: 1 }, { unique: true });
 
 module.exports = mongoose.model("Registration", registrationSchema);
 

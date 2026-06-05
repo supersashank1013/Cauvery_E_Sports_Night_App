@@ -45,7 +45,7 @@ button:active {
       rgba(2, 6, 23, 0.85),
       rgba(2, 6, 23, 0.85)
     ),
-    url("/src/assets/hero-bg.jpg"); /* same image as Home */
+    url("./assets/hero-bg.jpg");
 
   background-size: cover;
   background-position: center;
@@ -53,4 +53,3 @@ button:active {
 
   pointer-events: none;
 }
-

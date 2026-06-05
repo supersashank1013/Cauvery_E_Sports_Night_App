@@ -1,7 +1,4 @@
-import React from "react";
-import toast from "react-hot-toast";
-
-import "../styles/Home.css";
+import "../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import eventsData from "../data/eventsData";
 

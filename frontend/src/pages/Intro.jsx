@@ -1,11 +1,15 @@
-import React from "react";  
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/intro.css";
 
 const Intro = () => {
     const navigate = useNavigate();
     const [showSkip, setShowSkip] = useState(false);
+
+    const handleFinish = useCallback(() => {
+        sessionStorage.setItem("introSeen", "true");
+        navigate("/");
+    }, [navigate]);
 
     useEffect(() => {
         const skipTimer = setTimeout(() => {
@@ -20,12 +24,7 @@ const Intro = () => {
             clearTimeout(skipTimer);
             clearTimeout(autoEnd);
         };
-    }, []);
-
-    const handleFinish = () => {
-        sessionStorage.setItem("introSeen", "true");
-        navigate("/");
-    };
+    }, [handleFinish]);
 
     return (
         <div className="intro-screen">

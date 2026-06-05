@@ -1,50 +1,60 @@
-import React, { useEffect, useState, useMemo } from "react";
-import "../styles/admin.css";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
+import { apiUrl } from "../services/api";
+import "../styles/admin.css";
 
 const ITEMS_PER_PAGE = 50;
+
+const getAdminPassword = () => localStorage.getItem("adminPassword");
+
+const clearAdminSession = () => {
+  localStorage.removeItem("admin");
+  localStorage.removeItem("adminPassword");
+};
 
 const Admin = () => {
   const [selectedGame, setSelectedGame] = useState("ALL");
   const [teams, setTeams] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // 🔒 Auth check + fetch registrations
   useEffect(() => {
-    if (!localStorage.getItem("admin")) {
+    const adminPassword = getAdminPassword();
+
+    if (!localStorage.getItem("admin") || !adminPassword) {
       window.location.href = "/admin-login";
       return;
     }
 
-    fetch("http://localhost:5000/api/admin/registrations", {
+    fetch(apiUrl("/api/admin/registrations"), {
       headers: {
-        "x-admin-password": "supersecretadmin123",
+        "x-admin-password": adminPassword,
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setTeams(data.registrations);
+      .then(async (res) => {
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || "Failed to fetch admin data");
         }
+
+        return data;
+      })
+      .then((data) => {
+        setTeams(data.registrations || []);
       })
       .catch(() => {
-        alert("Failed to fetch admin data");
+        clearAdminSession();
+        alert("Failed to fetch admin data. Please log in again.");
+        window.location.href = "/admin-login";
       });
   }, []);
 
-  // 🔄 Reset page when filter changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedGame]);
-
-  // 🎯 Filter logic
   const filteredTeams = useMemo(() => {
     return selectedGame === "ALL"
       ? teams
-      : teams.filter((t) => t.game === selectedGame);
+      : teams.filter((team) => team.game === selectedGame);
   }, [teams, selectedGame]);
 
-  // 📄 Pagination logic
   const totalPages = Math.ceil(filteredTeams.length / ITEMS_PER_PAGE);
 
   const paginatedTeams = useMemo(() => {
@@ -53,17 +63,26 @@ const Admin = () => {
     return filteredTeams.slice(start, end);
   }, [filteredTeams, currentPage]);
 
-  // 📊 CSV download
+  const handleGameChange = (event) => {
+    setSelectedGame(event.target.value);
+    setCurrentPage(1);
+  };
+
   const downloadCSV = async () => {
+    const adminPassword = getAdminPassword();
+
+    if (!adminPassword) {
+      clearAdminSession();
+      window.location.href = "/admin-login";
+      return;
+    }
+
     try {
-      const res = await fetch(
-        "http://localhost:5000/api/admin/registrations/csv",
-        {
-          headers: {
-            "x-admin-password": "supersecretadmin123",
-          },
-        }
-      );
+      const res = await fetch(apiUrl("/api/admin/registrations/csv"), {
+        headers: {
+          "x-admin-password": adminPassword,
+        },
+      });
 
       if (!res.ok) {
         alert("CSV download failed");
@@ -72,50 +91,43 @@ const Admin = () => {
 
       const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
 
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "registrations.csv";
-      document.body.appendChild(a);
-      a.click();
+      link.href = url;
+      link.download = "registrations.csv";
+      document.body.appendChild(link);
+      link.click();
 
-      a.remove();
+      link.remove();
       window.URL.revokeObjectURL(url);
     } catch {
       alert("Error downloading CSV");
     }
   };
 
-  // 🚪 Logout
- const handleLogout = () => {
-  localStorage.removeItem("admin");
+  const handleLogout = () => {
+    clearAdminSession();
 
-  toast.success("Logged out successfully", {
-    duration: 2000,
-  });
+    toast.success("Logged out successfully", {
+      duration: 2000,
+    });
 
-  setTimeout(() => {
-    window.location.href = "/admin-login";
-  }, 600);
-};
-
+    setTimeout(() => {
+      window.location.href = "/admin-login";
+    }, 600);
+  };
 
   return (
     <div className="admin-container page-container">
       <div className="admin-header">
         <div className="filter-bar">
           <label>Filter by Game:</label>
-          <select
-            value={selectedGame}
-            onChange={(e) => setSelectedGame(e.target.value)}
-          >
+          <select value={selectedGame} onChange={handleGameChange}>
             <option value="ALL">All Games</option>
             <option value="Valorant">Valorant</option>
             <option value="BGMI">BGMI</option>
             <option value="Free Fire MAX">Free Fire MAX</option>
-            <option value="Call of Duty Mobile">
-              Call of Duty Mobile
-            </option>
+            <option value="Call of Duty Mobile">Call of Duty Mobile</option>
           </select>
         </div>
 
@@ -130,7 +142,7 @@ const Admin = () => {
       </div>
 
       {filteredTeams.length === 0 ? (
-        <p style={{color:"white"}}>No registrations found.</p>
+        <p style={{ color: "white" }}>No registrations found.</p>
       ) : (
         <div className="table-wrapper">
           <table className="admin-table">
@@ -145,16 +157,14 @@ const Admin = () => {
               </tr>
             </thead>
             <tbody>
-              {paginatedTeams.map((t, index) => (
-                <tr key={t._id}>
-                  <td>
-                    {(currentPage - 1) * ITEMS_PER_PAGE + index + 1}
-                  </td>
-                  <td>{t.teamName}</td>
-                  <td>{t.teamLeaderName}</td>
-                  <td>{t.game}</td>
-                  <td>{t.contactEmail}</td>
-                  <td>{t.contactPhone}</td>
+              {paginatedTeams.map((team, index) => (
+                <tr key={team._id}>
+                  <td>{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+                  <td>{team.teamName}</td>
+                  <td>{team.teamLeaderName}</td>
+                  <td>{team.game}</td>
+                  <td>{team.contactEmail}</td>
+                  <td>{team.contactPhone}</td>
                 </tr>
               ))}
             </tbody>
@@ -164,7 +174,7 @@ const Admin = () => {
             <div className="pagination">
               <button
                 disabled={currentPage === 1}
-                onClick={() => setCurrentPage((p) => p - 1)}
+                onClick={() => setCurrentPage((page) => page - 1)}
               >
                 Prev
               </button>
@@ -175,7 +185,7 @@ const Admin = () => {
 
               <button
                 disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage((p) => p + 1)}
+                onClick={() => setCurrentPage((page) => page + 1)}
               >
                 Next
               </button>

@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Registration = require("../models/Registration");
-const sendConfirmationEmail = require("../utils/sendEmail");
 
-// POST: Register a team
 router.post("/", async (req, res) => {
   try {
     const {
@@ -14,7 +12,6 @@ router.post("/", async (req, res) => {
       game,
     } = req.body;
 
-    // 🔴 Minimal validation (matches current form)
     if (
       !teamName ||
       !teamLeaderName ||
@@ -28,12 +25,27 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // 🔒 Prevent duplicate team names
-    const existingTeam = await Registration.findOne({ teamName });
-    if (existingTeam) {
+    const existingTeamForGame = await Registration.findOne({
+      game,
+      teamName,
+    });
+
+    if (existingTeamForGame) {
       return res.status(409).json({
         success: false,
-        message: "Team name already exists",
+        message: "This team name is already registered for this game.",
+      });
+    }
+
+    const existingPhoneForGame = await Registration.findOne({
+      game,
+      contactPhone,
+    });
+
+    if (existingPhoneForGame) {
+      return res.status(409).json({
+        success: false,
+        message: "This phone number is already registered for this game.",
       });
     }
 
@@ -47,8 +59,6 @@ router.post("/", async (req, res) => {
 
     await registration.save();
 
-    // (Email can be added here later safely)
-
     res.status(201).json({
       success: true,
       message: "Registration successful",
@@ -61,4 +71,5 @@ router.post("/", async (req, res) => {
     });
   }
 });
+
 module.exports = router;
